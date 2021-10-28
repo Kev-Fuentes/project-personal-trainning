@@ -12,8 +12,21 @@ POST http://localhost:4000/api/v1/foods/
 content-type: application/json
 
 {
-    "name": "Hamburgesa",
+    "name": "Asado",
     "price": "6",
     "type":"fast food"
 }
+
+
+### PATCH FOOD
+PATCH   http://localhost:4000/api/v1/foods/617abecb5e44680d6020d7e9  
+content-type: application/json
+
+{
+    "name": "Hamburgesa"
+}
+
+### DELETE FOOD
+DELETE   http://localhost:4000/api/v1/foods/617a1444e32ffc22a841bedd
+
 

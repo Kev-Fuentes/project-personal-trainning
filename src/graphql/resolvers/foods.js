@@ -9,9 +9,9 @@ const resolvers = {
     },
   },
   Mutation: {
-    createFood: (_, { input }) => {
-      const newFood = new foodsModel(input);
-      newFood.save();
+    createFood: async (_, { input }) => {
+      const newFood = await new foodsModel(input);
+      await newFood.save();
       return newFood;
     },
     updateFood: (_, { _id, input }) => {

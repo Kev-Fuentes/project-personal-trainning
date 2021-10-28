@@ -11,7 +11,7 @@ type Foods {
     name:String!
     price:Int!
     type:String!
-    available:Boolean!
+    available:Boolean
 }
 type Mutation {
     createFood(input: FoodsInput):Foods
@@ -22,13 +22,20 @@ input FoodsInput {
     name:String!
     price:Int!
     type:String!
-    available:Boolean!
+    available:Boolean
+}
+
+input FoodsInput {
+    name:String
+    price:Int
+    type:String
+    available:Boolean
 }
 `;
 
 const foodsSchema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
+    typeDefs,
+    resolvers,
 });
 
 module.exports = foodsSchema;
