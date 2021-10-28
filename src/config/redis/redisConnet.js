@@ -1,8 +1,9 @@
+const logger = require('@condor-labs/logger');
+
 const setting = {
     host: '127.0.0.1',
     port: 6379,
 };
-
 const keyName = 'test:condorlabs-npm-helpers:counter';
 
 try {
@@ -16,12 +17,12 @@ try {
         await redisBatch.expire(keyName, 1);
         const resolve = await redisBatch.execAsync();
 
-        console.log(
+        logger.info(
             resolve && resolve.length > 0 && resolve[0] > 0
                 ? `REDIS Client connected OK!!!`
                 : `REDIS Client connection failed :(`
         );
     })();
 } catch (error) {
-    console.error(error);
+    logger.error("Error connection to redis", error);
 }

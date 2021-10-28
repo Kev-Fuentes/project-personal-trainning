@@ -7,9 +7,11 @@ const { MONGODB_HOST, MONGODB_PORT, MONGODB_DB } = process.env;
 const mongoDb = async () => {
   try {
     await mongo._connectSingleConnection({ url: `mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DB}` });
-    console.log('database Conected');
+
+    logger.info(`database Conected Mongodb`);
+
   } catch (error) {
-    logger.err(Error(error));
+    logger.err("Error conecting to mongodb", error);
   }
 };
 
