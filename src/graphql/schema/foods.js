@@ -1,3 +1,4 @@
+'use strict';
 const { makeExecutableSchema } = require('graphql-tools');
 const resolvers = require('../resolvers/foods');
 
@@ -26,9 +27,8 @@ input FoodsInput {
 `;
 
 const foodsSchema = makeExecutableSchema({
-    typeDefs,
-    resolvers,
+  typeDefs,
+  resolvers,
 });
-
 
 module.exports = foodsSchema;

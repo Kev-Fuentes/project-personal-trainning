@@ -1,6 +1,5 @@
-const foods = require("./foods")
-
+const foods = require('./foods');
 
 module.exports = {
-   foods
-}
+  foods,
+};

@@ -9,7 +9,7 @@
   "scripts": {
     "start": "nodemon ./src/bin/www",
     "test": "jest",
-    "lint": "eslint .",
+    "lint": "fix eslint .",
     "format": "prettier \"**/*.{js,jsx,ts,tsx}\" --write",
     "lint-global": "echo \"Prettier is running...\" && prettier \"**/*.{js,jsx,ts,tsx}\" --write && echo \"ESlint is running...\" && eslint ."
   },
