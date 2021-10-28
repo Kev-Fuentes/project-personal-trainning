@@ -44,8 +44,8 @@ input FoodsInputOp {
 `;
 
 const foodsSchema = makeExecutableSchema({
-    typeDefs,
-    resolvers,
+  typeDefs,
+  resolvers,
 });
 
 module.exports = foodsSchema;
