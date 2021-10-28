@@ -1,0 +1,19 @@
+### GET FOOD
+GET http://localhost:4000/api/v1/foods/  
+
+### GET BY ID
+
+GET http://localhost:4000/api/v1/foods/617a1032f4dbbe21987d7277
+
+
+
+### POST FOOD
+POST http://localhost:4000/api/v1/foods/  
+content-type: application/json
+
+{
+    "name": "Hamburgesa",
+    "price": "6",
+    "type":"fast food"
+}
+
