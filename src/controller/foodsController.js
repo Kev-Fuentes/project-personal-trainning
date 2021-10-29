@@ -1,11 +1,11 @@
 'use strict';
 const { foodsModel } = require('../models');
 const { schemaPostFood, schemaPatchFood } = require('../schemas');
+const redis = require('../config');
 const logger = require('@condor-labs/logger');
 const {
   status: { OK, BAD_RESQUEST, CREATE, ERROR_400, ERROR_404, EXISTING_RESOURCE, NOT_FOUND, SUCCESS },
 } = require('../constants');
-
 
 const getFoods = async (req, res) => {
   const client = await redis();
@@ -21,7 +21,7 @@ const getFoods = async (req, res) => {
 
     res.status(OK).json({ foods, messages: SUCCESS });
   } catch (error) {
-    logger.err("Error get food", error)
+    logger.err('Error get food', error);
     res.status(ERROR_404).json({ foods: [], messages: NOT_FOUND });
   }
 };
@@ -31,11 +31,10 @@ const getFoodById = async (req, res) => {
   try {
     const food = await foodsModel.findById({ _id: id });
     if (food) {
-
       return res.status(200).json({ food, messages: 'ok' });
     }
   } catch (error) {
-    logger.err("Error get food by id", error)
+    logger.err('Error get food by id', error);
     res.status(404).json({ food: [], messages: 'Not Found' });
   }
 };
@@ -59,7 +58,7 @@ const postFood = async (req, res) => {
     newfood.save();
     res.status(CREATE).json({ food: newfood, messages: SUCCESS });
   } catch (error) {
-    logger.err("Error create food", error);
+    logger.err('Error create food', error);
     res.status(ERROR_400).json({ foods: [], messages: BAD_RESQUEST });
   }
 };
@@ -103,7 +102,7 @@ const deleteFoodById = async (req, res) => {
     const deleteFood = await foodsModel.findOneAndDelete({ _id: id });
     res.status(OK).json({ food: deleteFood, messages: SUCCESS });
   } catch (error) {
-    logger.err("Error delete food", error)
+    logger.err('Error delete food', error);
     res.status(ERROR_404).json({ foods: [], messages: NOT_FOUND });
   }
 };

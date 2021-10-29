@@ -5,7 +5,7 @@ const { mongoDb } = require('./config');
 const { foodsRouter } = require('./routes');
 const { graphqlHTTP } = require('express-graphql');
 const { foodsSchema: schema } = require('./graphql/schema');
-const { healthMonitor } = require("@condor-labs/health-middleware");
+const { healthMonitor } = require('@condor-labs/health-middleware');
 
 require('dotenv').config();
 
