@@ -1,0 +1,18 @@
+version: '3.7'
+
+
+services:
+  apprestaurant:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+       - 4000:4000 
+  redis-server: 
+      image: redis:latest
+      command: redis-server
+  
+ 
+
+   
+   

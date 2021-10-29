@@ -1,7 +1,7 @@
 const logger = require('@condor-labs/logger');
 
 const setting = {
-    host: '127.0.0.1',
+    host: 'redis-server',
     port: 6379,
 };
 const keyName = 'test:condorlabs-npm-helpers:counter';
