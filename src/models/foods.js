@@ -5,6 +5,7 @@ const foodsSchema = new mongodb.mongoose.Schema({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
   price: {
     type: Number,

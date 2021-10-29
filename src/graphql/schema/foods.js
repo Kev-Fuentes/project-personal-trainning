@@ -5,24 +5,41 @@ const resolvers = require('../resolvers/foods');
 const typeDefs = `
 type Query {
     foods:[Foods]
+    foodById(id: ID): Foods
 }
 type Foods {
     id:ID
     name:String!
     price:Int!
     type:String!
-    available:Boolean!
+    available:Boolean
 }
+type Foods {
+    id:ID
+    name:String!
+    price:Int!
+    type:String!
+    available:Boolean
+}
+
+
 type Mutation {
-    createFood(input: FoodsInput):Foods
-    updateFood(_id:ID, input:FoodsInput): Foods
+    postFood(input: FoodsInput):Foods
+    updateFood(_id:ID, input:FoodsInputOp): Foods
     deleteFood(_id:ID): Foods
 }
 input FoodsInput {
     name:String!
     price:Int!
     type:String!
-    available:Boolean!
+    available:Boolean
+}
+
+input FoodsInputOp {
+    name:String
+    price:Int
+    type:String
+    available:Boolean
 }
 `;
 

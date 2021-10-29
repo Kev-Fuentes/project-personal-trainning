@@ -1,5 +1,5 @@
-const foods = require('./foods');
+const foodsRouter = require('./foods');
 
 module.exports = {
-  foods,
+  foodsRouter,
 };

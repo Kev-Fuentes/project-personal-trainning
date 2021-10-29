@@ -1,5 +1,6 @@
-const foodType = require('./food');
+const { schemaPostFood, schemaPatchFood } = require('./food');
 
 module.exports = {
-  foodType,
+  schemaPostFood,
+  schemaPatchFood,
 };

@@ -1,13 +1,28 @@
 'use strict';
 const { foodsModel } = require('../models');
-const { foodType } = require('../schemas');
+const { schemaPostFood, schemaPatchFood } = require('../schemas');
+const logger = require('@condor-labs/logger');
+const {
+  status: { OK, BAD_RESQUEST, CREATE, ERROR_400, ERROR_404, EXISTING_RESOURCE, NOT_FOUND, SUCCESS },
+} = require('../constants');
+
 
 const getFoods = async (req, res) => {
+  const client = await redis();
+
   try {
+    const reply = await client.get('food');
+    if (reply) {
+      return res.status(OK).json({ foods: JSON.params(reply), messages: SUCCESS });
+    }
+
     const foods = await foodsModel.find();
-    res.status(200).json({ foods, messages: 'ok' });
+    await client.set('foods', JSON.stringify(foods));
+
+    res.status(OK).json({ foods, messages: SUCCESS });
   } catch (error) {
-    res.status(404).json({ foods: [], messages: 'Not Found' });
+    logger.err("Error get food", error)
+    res.status(ERROR_404).json({ foods: [], messages: NOT_FOUND });
   }
 };
 
@@ -16,41 +31,81 @@ const getFoodById = async (req, res) => {
   try {
     const food = await foodsModel.findById({ _id: id });
     if (food) {
+
       return res.status(200).json({ food, messages: 'ok' });
     }
   } catch (error) {
-    res.status(404).json({ id, messages: 'Not Found' });
+    logger.err("Error get food by id", error)
+    res.status(404).json({ food: [], messages: 'Not Found' });
   }
 };
 
 const postFood = async (req, res) => {
   const food = req.body;
-  const validations = foodType.validate(food);
+  const validations = schemaPostFood.validate(food);
   const errors = validations.error?.details ?? false;
   const existsFood = await foodsModel.find({ name: food.name });
 
-  if (errors.length) {
-    return res.status(404).json({ food, message: errors[0].message });
-  }
   if (existsFood.length) {
-    return res.status(404).json({ food: existsFood, message: 'food already exists' });
+    return res.status(ERROR_404).json({ food: existsFood, message: EXISTING_RESOURCE });
+  }
+
+  if (errors.length) {
+    return res.status(ERROR_404).json({ food, message: errors[0].message });
   }
 
   try {
     const newfood = await new foodsModel(food);
     newfood.save();
-    res.status(201).json({ food: newfood, messages: 'Created' });
+    res.status(CREATE).json({ food: newfood, messages: SUCCESS });
   } catch (error) {
-    res.status(400).json({ foods: [], messages: 'Bad Request' });
+    logger.err("Error create food", error);
+    res.status(ERROR_400).json({ foods: [], messages: BAD_RESQUEST });
   }
 };
 
 const patchFoodById = async (req, res) => {
-  res.send('patchFoodById');
+  const { id } = req.params;
+  const food = req.body;
+  const validations = schemaPatchFood.validate(food);
+  const errors = validations.error?.details ?? false;
+  const existsFoodbByName = await foodsModel.find({ name: food.name });
+  const existsFoodById = await foodsModel.findById({ _id: id });
+  if (!food) {
+    return res.status(ERROR_404).json({ food, message: NOT_FOUND });
+  }
+  if (!existsFoodById) {
+    return res.status(ERROR_404).json({ food: [], message: NOT_FOUND });
+  }
+  if (existsFoodbByName.length) {
+    return res.status(ERROR_404).json({ food: existsFoodbByName, message: EXISTING_RESOURCE });
+  }
+
+  if (errors.length) {
+    return res.status(404).json({ food, message: errors[0].message });
+  }
+
+  try {
+    const updateFood = await foodsModel.findOneAndUpdate({ _id: id }, food, { new: true });
+    res.status(OK).json({ food: updateFood, messages: SUCCESS });
+  } catch (error) {
+    res.status(ERROR_400).json({ foods: [], messages: BAD_RESQUEST });
+  }
 };
 
 const deleteFoodById = async (req, res) => {
-  res.send('deleteFoodById');
+  const { id } = req.params;
+  const existsFood = await foodsModel.findById({ _id: id });
+  if (!existsFood) {
+    return res.status(404).json({ foods: {}, messages: NOT_FOUND });
+  }
+  try {
+    const deleteFood = await foodsModel.findOneAndDelete({ _id: id });
+    res.status(OK).json({ food: deleteFood, messages: SUCCESS });
+  } catch (error) {
+    logger.err("Error delete food", error)
+    res.status(ERROR_404).json({ foods: [], messages: NOT_FOUND });
+  }
 };
 
 module.exports = {
