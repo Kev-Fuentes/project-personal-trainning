@@ -15,11 +15,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build  -t kevinfuentesoi/app-restaura:v1 .
-    - name: Build and push Docker images
-      uses: docker/build-push-action@v1
-      with:
-       username: ${{ secrets.DOCKER_USERNAME }}
-       password: ${{ secrets.DOCKER_PASSWORD }}
-       repository: kevinfuentesio/app-restaurant:v1
-       tags: latest
+      run: | 
+        echo "{{secrets.DOCKER_PASSWORD}}" | docker login -u "kevinfuentesio" --password-stdin
+        docker build  -t kevinfuentesoi/app-restaurant:v1 .
+        docker push kevinfuentesio/app-restaurant:v1
+    
