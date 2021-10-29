@@ -1,3 +1,4 @@
+'use strict';
 /* STATUS */
 const OK = 200;
 const CREATE = 201;

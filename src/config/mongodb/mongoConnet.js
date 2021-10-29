@@ -9,9 +9,8 @@ const mongoDb = async () => {
     await mongo._connectSingleConnection({ url: `mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DB}` });
 
     logger.info(`database Conected Mongodb`);
-
   } catch (error) {
-    logger.err("Error conecting to mongodb", error);
+    logger.err('Error conecting to mongodb', error);
   }
 };
 
