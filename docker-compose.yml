@@ -6,12 +6,22 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+    env_file: ./.env.dev  
+    environment:   
+    - PORT = $PORT
+    - MONGODB_HOST = $MONGODB_HOST
+    - MONGODB_PORT = $MONGODB_PORT
+    - MONGODB_DB = $MONGODB_DB
+    - REDIS_HOST = $REDIS_HOST
+    - REDIS_PORT = $REDIS_PORT
     ports:
        - 4000:4000 
   redis-server: 
       image: redis:latest
       command: redis-server
-  
+      
+  mongo-server:
+      image: mongo:5.0.2
  
 
    
