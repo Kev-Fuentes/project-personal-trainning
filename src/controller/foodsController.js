@@ -1,7 +1,7 @@
 'use strict';
 const { foodsModel } = require('../models');
 const { schemaPostFood, schemaPatchFood } = require('../schemas');
-const redis = require('../config');
+const { redis } = require('../config');
 const logger = require('@condor-labs/logger');
 const {
   status: { OK, BAD_RESQUEST, CREATE, ERROR_400, ERROR_404, EXISTING_RESOURCE, NOT_FOUND, SUCCESS },
