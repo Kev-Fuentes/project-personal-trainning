@@ -2,8 +2,8 @@
 const logger = require('@condor-labs/logger');
 const { REDIS_HOST, REDIS_PORT } = process.env;
 const setting = {
-  host: REDIS_HOST,
-  port: parseInt(REDIS_PORT),
+  host: REDIS_HOST || 'localhost',
+  port: parseInt(REDIS_PORT) || 6379,
 };
 const keyName = 'test:condorlabs-npm-helpers:counter';
 

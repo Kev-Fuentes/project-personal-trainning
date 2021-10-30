@@ -26,13 +26,13 @@ const settingPro = {
 };
 
 const settingDev = {
-  connectionName: MONGO_CONNECTION_NAME,
-  host: MONGO_HOST,
-  port: MONGO_PORT,
-  database: MONGO_DATABASE,
-  user: MONGO_USER,
-  password: MONGO_PASSWORD,
-  ssl: MONGO_SSL === '1',
+  connectionName: MONGO_CONNECTION_NAME || 'connection_mongo_1',
+  host: MONGO_HOST || 'localhost',
+  port: MONGO_PORT || 27017,
+  database: MONGO_DATABASE || 'app-restaurant',
+  user: MONGO_USER || '',
+  password: MONGO_PASSWORD || '',
+  ssl: MONGO_SSL === '1' || false,
 };
 
 const setting = MONGO_AUTH_SOURCE ? settingPro : settingDev;
