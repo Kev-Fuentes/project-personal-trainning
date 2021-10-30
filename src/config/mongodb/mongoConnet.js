@@ -6,7 +6,10 @@ const { MONGODB_HOST, MONGODB_PORT, MONGODB_DB } = process.env;
 
 const mongoDb = async () => {
   try {
-    await mongo._connectSingleConnection({ url: `mongodb://${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_DB}` });
+    await mongo.mongoose.connect(`mongodb+srv://root:root@cluster0.aqa7l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
 
     logger.info(`database Conected Mongodb`);
   } catch (error) {
@@ -15,3 +18,9 @@ const mongoDb = async () => {
 };
 
 module.exports = mongoDb;
+
+
+// user: 'root', pass: 'root',
+//       replicaSet: 'cluster0-shard-0',
+//       ssl: true,
+//       authSource: "admin ",
