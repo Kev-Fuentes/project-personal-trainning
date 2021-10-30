@@ -1,0 +1,47 @@
+'use strict';
+require('dotenv').config();
+const {
+    MONGO_CONNECTION_NAME,
+    MONGO_HOST,
+    MONGO_AUTH_SOURCE,
+    MONGO_DATABASE,
+    MONGO_PASSWORD,
+    MONGO_REPLICASET,
+    MONGO_SSL,
+    MONGO_USER,
+    MONGO_PORT,
+} = process.env;
+
+const settingPro = {
+
+    connectionName: MONGO_CONNECTION_NAME,
+    host: MONGO_HOST,
+    port: MONGO_PORT,
+    database: MONGO_DATABASE,
+    user: MONGO_USER,
+    password: MONGO_PASSWORD,
+    ssl: MONGO_SSL === '1',
+    replicaSet: MONGO_REPLICASET,
+    authSource: MONGO_AUTH_SOURCE,
+
+}
+
+
+const settingDev = {
+    connectionName: MONGO_CONNECTION_NAME,
+    host: MONGO_HOST,
+    port: MONGO_PORT,
+    database: MONGO_DATABASE,
+    user: MONGO_USER,
+    password: MONGO_PASSWORD,
+    ssl: MONGO_SSL === '1',
+
+}
+
+const setting = MONGO_AUTH_SOURCE ? settingPro : settingDev;
+
+const MongoDB = require('@condor-labs/mongodb')(setting);
+
+module.exports = {
+    MongoDB,
+};

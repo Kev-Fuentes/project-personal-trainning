@@ -1,7 +1,7 @@
-const mongoDb = require('./mongodb/mongoConnet');
+const { MongoDB } = require('./mongodb/setting');
 const redis = require('./redis/redisMethods');
 
 module.exports = {
-  mongoDb,
+  MongoDB,
   redis,
 };
