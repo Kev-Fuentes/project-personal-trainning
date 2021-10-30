@@ -1,5 +1,5 @@
 'use strict';
-require('dotenv').config({ path: `${__dirname}/../../../.env.dev` });
+require('dotenv').config();
 
 const {
   MONGO_CONNECTION_NAME,
