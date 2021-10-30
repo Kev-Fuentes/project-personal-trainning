@@ -1,7 +1,8 @@
 'use strict';
-const mongodb = require('@condor-labs/mongodb')();
+const { MongoDB } = require('../config');
+const mongoose = MongoDB.mongoose;
 
-const foodsSchema = new mongodb.mongoose.Schema({
+const foodsSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -21,6 +22,6 @@ const foodsSchema = new mongodb.mongoose.Schema({
   available: { type: Boolean, default: true },
 });
 
-const foodsModel = mongodb.mongoose.model('Foods', foodsSchema);
+const foodsModel = mongoose.model('Foods', foodsSchema);
 
 module.exports = foodsModel;
