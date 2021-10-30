@@ -1,5 +1,6 @@
 'use strict';
-require('dotenv').config();
+require('dotenv').config({ path: __dirname + '/../../../.env.dev' });
+
 const {
     MONGO_CONNECTION_NAME,
     MONGO_HOST,
@@ -16,7 +17,7 @@ const settingPro = {
 
     connectionName: MONGO_CONNECTION_NAME,
     host: MONGO_HOST,
-    port: MONGO_PORT,
+    port: parseInt(MONGO_PORT),
     database: MONGO_DATABASE,
     user: MONGO_USER,
     password: MONGO_PASSWORD,
@@ -38,7 +39,7 @@ const settingDev = {
 
 }
 
-const setting = MONGO_AUTH_SOURCE ? settingPro : settingDev;
+const setting = MONGO_AUTH_SOURCE ? settingPro : settingDev
 
 const MongoDB = require('@condor-labs/mongodb')(setting);
 

@@ -1,10 +1,9 @@
 'use strict';
-require('dotenv').config();
 const logger = require('@condor-labs/logger');
 const { REDIS_HOST, REDIS_PORT } = process.env;
 const setting = {
   host: REDIS_HOST,
-  port: REDIS_PORT,
+  port: parseInt(REDIS_PORT),
 };
 const keyName = 'test:condorlabs-npm-helpers:counter';
 

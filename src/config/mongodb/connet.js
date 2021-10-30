@@ -1,5 +1,4 @@
 'use strict';
-require('dotenv').config();
 const { MongoDB } = require('./setting');
 const logger = require('@condor-labs/logger');
 
