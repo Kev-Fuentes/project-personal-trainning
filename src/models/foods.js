@@ -2,7 +2,6 @@
 const { MongoDB } = require('../config');
 const mongoose = MongoDB.mongoose;
 
-
 const foodsSchema = new mongoose.Schema({
   name: {
     type: String,

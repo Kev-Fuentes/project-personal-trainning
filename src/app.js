@@ -6,9 +6,7 @@ const { graphqlHTTP } = require('express-graphql');
 const { foodsSchema: schema } = require('./graphql/schema');
 const { healthMonitor } = require('@condor-labs/health-middleware');
 
-
 require('./config/mongodb/connet');
-
 
 const app = express();
 healthMonitor(app);
