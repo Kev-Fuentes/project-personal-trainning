@@ -91,9 +91,6 @@ describe(' DELETE FOOD', () => {
 
 afterAll(async () => {
   const redisc = await redis.getClient();
+  await mongoose.disconnect();
   await redisc.quit();
 });
-afterAll(() => {
-  mongoose.disconnect();
-});
-
