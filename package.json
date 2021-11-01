@@ -15,17 +15,21 @@
     "format": "prettier \"**/*.{js,jsx,ts,tsx}\" --write",
     "lint-global": "echo \"Prettier is running...\" && prettier \"**/*.{js,jsx,ts,tsx}\" --write && echo \"ESlint is running...\" && eslint ."
   },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.15.8",
     "@babel/eslint-parser": "^7.15.8",
-    "@babel/plugin-transform-modules-commonjs": "^7.16.0",
     "@babel/plugin-transform-runtime": "^7.15.8",
     "@condor-labs/eslint-config": "1.2.0",
     "@condor-labs/matchbox": "1.4.0",
     "@condor-labs/prettier-config": "1.1.0",
+    "babel-jest": "^27.3.1",
     "eslint": "7.23.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
