@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x, 14.x]
+        node-version: [14.x]
         mongodb-version: ['5.0']
 
     steps:
@@ -26,3 +26,5 @@ jobs:
     - run: npm i
     - run: npm run lint-global
     - run: npm test
+      env:
+       CI: true
