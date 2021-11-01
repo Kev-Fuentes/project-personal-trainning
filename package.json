@@ -18,7 +18,8 @@
   "jest": {
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
-    },
+    }
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
