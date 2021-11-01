@@ -1,5 +1,5 @@
 'use strict';
-require('./redisConnet');
+require('./connet');
 const redis = require('@condor-labs/redis')();
 const { promisify } = require('util');
 

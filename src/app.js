@@ -1,4 +1,7 @@
 'use strict';
+const path = process.env.NODE_ENV === 'production' ? null : `${__dirname}/../.env.dev`;
+
+require('dotenv').config({ path });
 const express = require('express');
 const cors = require('cors');
 const { foodsRouter } = require('./routes');
@@ -6,9 +9,8 @@ const { graphqlHTTP } = require('express-graphql');
 const { foodsSchema: schema } = require('./graphql/schema');
 const { healthMonitor } = require('@condor-labs/health-middleware');
 
-require('./config/mongodb/connet');
-
 const app = express();
+
 healthMonitor(app);
 
 app.use(express.json());

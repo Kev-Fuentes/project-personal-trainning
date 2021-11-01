@@ -2,12 +2,34 @@
 name: flow-job-condorlabs
 on: [pull_request]
 jobs:
-  check-bats-version:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+        mongodb-version: [5.0]
+        redis-version: [5]
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - run: npm i
-      - run: npm run lint-global
+    - name: Git checkout
+      uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.6.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+        
+    - name: Start Redis
+      uses: supercharge/redis-github-action@1.2.0
+      with:
+        redis-version: ${{ matrix.redis-version }}
+        
+    - run: npm i
+    - run: npm run lint-global
+    - run: npm test
+      env:  
+       CI: true 
