@@ -2,22 +2,27 @@
 name: flow-job-condorlabs
 on: [pull_request]
 jobs:
-  check-bats-version:
+  build:
     runs-on: ubuntu-latest
-    services:
-        mongo:
-          image: mongo
-          env:
-            MONGO_INITDB_ROOT_USERNAME: ${APP_MONGO_USER}
-            MONGO_INITDB_ROOT_PASSWORD: ${APP_MONGO_PASS}
-            MONGO_INITDB_DATABASE: ${APP_MONGO_DB}
-          ports:
-            - 27017:27017
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x]
+        mongodb-version: ['5.0']
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - run: npm i
-      - run: npm run lint-global
-      - run: npm test
+    - name: Git checkout
+      uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.6.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+        
+    - run: npm i
+    - run: npm run lint-global
+    - run: npm test
