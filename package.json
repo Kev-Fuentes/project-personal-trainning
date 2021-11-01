@@ -9,7 +9,7 @@
   "scripts": {
     "start:dev": " NODE_ENV=development nodemon ./src/bin/www ",
     "start": "NODE_ENV=production nodemon ./src/bin/www",
-    "test": "NODE_ENV=test  jest --verbose  --silent",
+    "test": "NODE_ENV=test  jest --verbose  --silent --detectOpenHandles",
     "test:watch": "npm run test -- --watch",
     "lint": "eslint .",
     "format": "prettier \"**/*.{js,jsx,ts,tsx}\" --write",

@@ -1,7 +1,7 @@
 const app = require('../../src/app');
 const supertest = require('supertest');
-const api = supertest(app);
-const { MongoDB } = require('../../src/config');
+const api = supertest(app)
+const { MongoDB } = require('../../src/config')
 const mongoose = MongoDB.mongoose;
 const redis = require('@condor-labs/redis')();
 
@@ -9,8 +9,8 @@ const enumType = {
   BREAKFAST: 'breakfast',
   LUNCH: 'lunch',
   DINNER: 'dinner',
-  FASTFOOT: 'fast food',
-};
+  FASTFOOT: 'fast food'
+}
 
 const initialFoods = [
   {
@@ -22,23 +22,23 @@ const initialFoods = [
     name: 'Hamburgesa',
     price: 2,
     type: enumType['FASTFOOT'],
-  },
-];
+  }
+]
 
 const newFood = {
   name: 'Asado',
   price: 2,
   type: enumType['LUNCH'],
-};
+}
 
 const getAllContentFromFoods = async () => {
   const response = await api.get('/api/v1/foods');
-  const names = response.body.foods.map((food) => food.name);
+  const names = response.body.foods.map(food => food.name);
   return {
     response,
-    names,
-  };
-};
+    names
+  }
+}
 
 module.exports = {
   initialFoods,
@@ -46,5 +46,5 @@ module.exports = {
   api,
   getAllContentFromFoods,
   mongoose,
-  redis,
-};
+  redis
+}
