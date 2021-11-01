@@ -1,11 +1,6 @@
 'use strict';
 const logger = require('@condor-labs/logger');
-const { REDIS_HOST, REDIS_PORT } = process.env;
-const setting = {
-  host: REDIS_HOST || 'localhost',
-  port: parseInt(REDIS_PORT) || 6379,
-};
-const keyName = 'test:condorlabs-npm-helpers:counter';
+const { setting, keyName } = require('./settting');
 
 try {
   const redis = require('@condor-labs/redis')(setting);

@@ -1,8 +1,9 @@
 'use strict';
+require('../config/mongodb/connet');
 const { MongoDB } = require('../config');
 const mongoose = MongoDB.mongoose;
 
-const foodsSchema = new mongoose.Schema({
+const foodSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -22,6 +23,6 @@ const foodsSchema = new mongoose.Schema({
   available: { type: Boolean, default: true },
 });
 
-const foodsModel = mongoose.model('Foods', foodsSchema);
+const Food = mongoose.model('Food', foodSchema);
 
-module.exports = foodsModel;
+module.exports = Food;

@@ -5,7 +5,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: ./Dockerfile.dev
+      dockerfile: ./Dockerfile
     environment: 
         - PORT=4000
         - REDIS_HOST=redis-server

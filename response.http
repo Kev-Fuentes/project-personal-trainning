@@ -3,7 +3,7 @@ GET http://localhost:4000/api/v1/foods/
 
 ### GET BY ID
 
-GET http://localhost:4000/api/v1/foods/617a1032f4dbbe21987d7277
+GET http://localhost:4000/api/v1/foods/617f63706a6e264a3771159c
 
 
 
@@ -27,6 +27,5 @@ content-type: application/json
 }
 
 ### DELETE FOOD
-DELETE   http://localhost:4000/api/v1/foods/617a1444e32ffc22a841bedd
-
+DELETE   http://localhost:4000/api/v1/foods/617ef91dbd2c3e0b728d7102
 

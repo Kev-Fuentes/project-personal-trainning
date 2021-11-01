@@ -7,8 +7,10 @@
     "test": "test"
   },
   "scripts": {
-    "start": "nodemon ./src/bin/www",
-    "test": "jest",
+    "start:dev": " NODE_ENV=development nodemon ./src/bin/www ",
+    "start": "NODE_ENV=production nodemon ./src/bin/www",
+    "test": "NODE_ENV=test  jest --verbose  --silent",
+    "test:watch": "npm run test -- --watch",
     "lint": "eslint .",
     "format": "prettier \"**/*.{js,jsx,ts,tsx}\" --write",
     "lint-global": "echo \"Prettier is running...\" && prettier \"**/*.{js,jsx,ts,tsx}\" --write && echo \"ESlint is running...\" && eslint ."
@@ -35,7 +37,8 @@
     "lint-staged": "10.5.4",
     "mrm-core": "^6.1.7",
     "nodemon": "^2.0.14",
-    "prettier": "2.4.1"
+    "prettier": "2.4.1",
+    "supertest": "^6.1.6"
   },
   "dependencies": {
     "@condor-labs/health-middleware": "^1.0.2",

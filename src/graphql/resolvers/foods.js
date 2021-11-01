@@ -1,5 +1,5 @@
 'use strict';
-const { foodsModel } = require('../../models');
+const { Food } = require('../../models');
 const { redis } = require('../../config');
 const logger = require('@condor-labs/logger');
 
@@ -14,7 +14,7 @@ const resolvers = {
           return JSON.params(reply);
         }
 
-        const foods = await foodsModel.find();
+        const foods = await Food.find();
 
         await client.set('foods', JSON.stringify(foods));
         return foods;
@@ -26,7 +26,7 @@ const resolvers = {
 
     foodById: async (_, { id }) => {
       try {
-        const foods = await foodsModel.findById({ _id: id });
+        const foods = await Food.findById({ _id: id });
         return foods;
       } catch (error) {
         logger.err('Error get food by id GraphQL', error);
@@ -38,7 +38,7 @@ const resolvers = {
   Mutation: {
     postFood: async (_, { input }) => {
       try {
-        const newfood = await new foodsModel(input);
+        const newfood = await new Food(input);
         newfood.save();
         return newfood;
       } catch (error) {
@@ -48,7 +48,7 @@ const resolvers = {
     },
     updateFood: async (_, { _id, input }) => {
       try {
-        return await foodsModel.findByIdAndUpdate(_id, input, { new: true });
+        return await Food.findByIdAndUpdate(_id, input, { new: true });
       } catch (error) {
         logger.err('Error get food by id GraphQL', error);
         return [];
@@ -57,7 +57,7 @@ const resolvers = {
 
     deleteFood: async (_, { _id }) => {
       try {
-        return await foodsModel.findByIdAndDelete(_id);
+        return await Food.findByIdAndDelete(_id);
       } catch (error) {
         logger.err('Error get food by id GraphQL', error);
         return [];

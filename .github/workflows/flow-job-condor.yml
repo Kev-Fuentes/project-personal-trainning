@@ -11,3 +11,4 @@ jobs:
           node-version: '14'
       - run: npm i
       - run: npm run lint-global
+      - run: npm run jest --verbose  --silent
