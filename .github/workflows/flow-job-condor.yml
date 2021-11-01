@@ -12,7 +12,7 @@ env:
   MONGO_REPLICASET: ${{ secrets.MONGO_REPLICASET }}
   MONGO_AUTH_SOURCE: ${{ secrets.MONGO_AUTH_SOURCE }}
   MONGO_DATABASE_TEST: ${{ secrets.MONGO_DATABASE_TEST }}
-    
+  CI: true 
 jobs:
   build:
     runs-on: ubuntu-latest
