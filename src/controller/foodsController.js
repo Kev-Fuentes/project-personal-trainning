@@ -35,7 +35,7 @@ const getFoodById = async (req, res) => {
     }
   } catch (error) {
     logger.err('Error get food by id', error);
-    res.status(404).json({ food: [], messages: 'Not Found' });
+    res.status(404).json({ food: {}, messages: 'Not Found' });
   }
 };
 
@@ -59,7 +59,7 @@ const postFood = async (req, res) => {
     res.status(CREATE).json({ food: newfood, messages: SUCCESS });
   } catch (error) {
     logger.err('Error create food', error);
-    res.status(ERROR_400).json({ foods: [], messages: BAD_RESQUEST });
+    res.status(ERROR_400).json({ foods: {}, messages: BAD_RESQUEST });
   }
 };
 
@@ -74,7 +74,7 @@ const patchFoodById = async (req, res) => {
     return res.status(ERROR_404).json({ food, message: NOT_FOUND });
   }
   if (!existsFoodById) {
-    return res.status(ERROR_404).json({ food: [], message: NOT_FOUND });
+    return res.status(ERROR_404).json({ food: {}, message: NOT_FOUND });
   }
   if (existsFoodbByName.length) {
     return res.status(ERROR_404).json({ food: existsFoodbByName, message: EXISTING_RESOURCE });
@@ -88,7 +88,7 @@ const patchFoodById = async (req, res) => {
     const updateFood = await Food.findOneAndUpdate({ _id: id }, food, { new: true });
     res.status(OK).json({ food: updateFood, messages: SUCCESS });
   } catch (error) {
-    res.status(ERROR_400).json({ foods: [], messages: BAD_RESQUEST });
+    res.status(ERROR_400).json({ foods: {}, messages: BAD_RESQUEST });
   }
 };
 
@@ -103,7 +103,7 @@ const deleteFoodById = async (req, res) => {
     res.status(OK).json({ food: deleteFood, messages: SUCCESS });
   } catch (error) {
     logger.err('Error delete food', error);
-    res.status(ERROR_404).json({ foods: [], messages: NOT_FOUND });
+    res.status(ERROR_404).json({ foods: {}, messages: NOT_FOUND });
   }
 };
 
