@@ -6,9 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x]
-        mongodb-version: [5.0]
-        redis-version: [5]
+        node-version: [14.18.x]
+        mongodb-version: [5.0.x]
+        redis-version: [5.x]
     steps:
     - name: Git checkout
       uses: actions/checkout@v2
