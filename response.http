@@ -3,7 +3,7 @@ GET http://localhost:4000/api/v1/foods/
 
 ### GET BY ID
 
-GET http://localhost:4000/api/v1/foods/617f63706a6e264a3771159c
+GET http://localhost:4000/api/v1/foods/6181c6b11cc68232e5095959
 
 
 
