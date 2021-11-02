@@ -13,7 +13,7 @@ describe(' GET FOODS', () => {
   test('should repond with 200 status code', async () => {
     await api
       .get('/api/v1/foods')
-      .expect(201)
+      .expect(200)
       .expect('Content-Type', /application\/json/);
   });
 
