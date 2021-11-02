@@ -17,14 +17,14 @@ describe(' GET FOODS', () => {
       .expect('Content-Type', /application\/json/);
   });
 
-  test('should repond with 200 with an array', async () => {
+  test('should repond with an array of foods ', async () => {
     const response = await api.get('/api/v1/foods');
     expect(response.body.foods).toHaveLength(initialFoods.length);
   });
 });
 
 describe('GET FOOD BY ID', () => {
-  test('should repond with 200 status code', async () => {
+  test('should repond with a food by id', async () => {
     const { response: responseAll } = await getAllContentFromFoods();
     const {
       body: { foods },
@@ -41,7 +41,7 @@ describe('GET FOOD BY ID', () => {
 });
 
 describe('UPDATE FOOD', () => {
-  test('should repond with 201 status code', async () => {
+  test('should repond with update a food', async () => {
     const { response: responseAll } = await getAllContentFromFoods();
     const {
       body: { foods },
@@ -61,7 +61,7 @@ describe('UPDATE FOOD', () => {
 });
 
 describe(' POST FOOD', () => {
-  test('should repond with 201 status code', async () => {
+  test('should repond with post a food', async () => {
     await api
       .post('/api/v1/foods')
       .send(newFood)
@@ -75,7 +75,7 @@ describe(' POST FOOD', () => {
 });
 
 describe(' DELETE FOOD', () => {
-  test('should repond with 201 status code', async () => {
+  test('should repond with  delete food', async () => {
     const { response: responseAll } = await getAllContentFromFoods();
     const {
       body: { foods },

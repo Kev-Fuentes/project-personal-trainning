@@ -1,0 +1,21 @@
+
+
+service: evck-posthire-app-restaurant
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  stage: dev
+  region: us-east-1
+
+
+functions:
+  validateEnv:
+      handler: handler.validateEnv
+      events: 
+        - http: 
+           method: GET
+           path: /api/v1/foods/{env}
