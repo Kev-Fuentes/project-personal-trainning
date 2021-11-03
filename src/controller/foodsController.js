@@ -1,25 +1,15 @@
 'use strict';
 const { Food } = require('../models');
 const { schemaPostFood, schemaPatchFood } = require('../schemas');
-const { redis } = require('../config');
 const logger = require('@condor-labs/logger');
+
 const {
   status: { OK, BAD_RESQUEST, CREATE, ERROR_400, ERROR_404, EXISTING_RESOURCE, NOT_FOUND, SUCCESS },
 } = require('../constants');
 
 const getFoods = async (req, res) => {
-  const client = await redis();
-
   try {
-    const reply = await client.get('foods');
-    if (reply) {
-      logger.log('DATA FROM READIS');
-      return res.status(OK).json({ foods: JSON.params(reply), messages: SUCCESS });
-    }
-
     const foods = await Food.find();
-    await client.set('foods', JSON.stringify(foods));
-
     res.status(OK).json({ foods, messages: SUCCESS });
   } catch (error) {
     logger.err('Error get food', error);
