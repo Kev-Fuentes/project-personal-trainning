@@ -12,5 +12,4 @@ module.exports.validateEnv = async (event) => {
       2
     ),
   };
-
-}
+};
