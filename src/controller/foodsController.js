@@ -28,7 +28,6 @@ const getFoodById = async (req, res) => {
   const client = await redis();
   const reply = await client.get(id);
   if (reply) {
-    console.log(reply)
     return res.status(OK).json({ food: JSON.parse(reply), messages: SUCCESS });
   }
 
