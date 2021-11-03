@@ -11,8 +11,9 @@ const getFoods = async (req, res) => {
   const client = await redis();
 
   try {
-    const reply = await client.get('food');
+    const reply = await client.get('foods');
     if (reply) {
+      logger.log('DATA FROM READIS');
       return res.status(OK).json({ foods: JSON.params(reply), messages: SUCCESS });
     }
 
