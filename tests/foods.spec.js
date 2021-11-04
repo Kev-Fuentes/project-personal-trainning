@@ -1,9 +1,10 @@
 const { initialFoods, api } = require('./helpers');
 const { stub } = require('sinon');
+jest.useFakeTimers()
 const { Food } = require('../src/models');
 
 const findFood = stub(Food, 'find');
-jest.useFakeTimers()
+
 
 beforeEach(() => {
   findFood.resetHistory();
