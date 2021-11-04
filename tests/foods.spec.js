@@ -10,7 +10,10 @@ const { Food } = require('../src/models');
 const findFood = stub(Food, 'find');
 
 
+beforeEach(() => {
+  findFood.resetHistory();
 
+});
 
 describe(' GET FOODS', () => {
 
