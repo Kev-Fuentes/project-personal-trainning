@@ -2,8 +2,21 @@
 const app = require('../src/app');
 const supertest = require('supertest');
 const api = supertest(app);
+const { stub } = require('sinon')
+const { Food } = require('../src/models')
 const { initialFoods } = require('./helpers')
+
+const findFood = stub(Food, 'find')
+
+beforeEach(() => {
+  findFood.resetHistory();
+});
+
+
 describe(' GET FOODS', () => {
+  findFood.returns(initialFoods);
+
+
   test('should repond with 200 status code', async () => {
     await api
       .get('/api/v1/foods')
@@ -15,6 +28,7 @@ describe(' GET FOODS', () => {
     const response = await api.get('/api/v1/foods');
     expect(response.body.foods).toHaveLength(initialFoods.length);
   });
+
 
 });
 

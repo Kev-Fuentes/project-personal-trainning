@@ -12,7 +12,7 @@ const getFoods = async (req, res) => {
 
 
   try {
-
+    console.log(Food);
     const foods = await Food.find();
 
 
