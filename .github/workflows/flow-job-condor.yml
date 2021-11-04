@@ -4,20 +4,6 @@ on: [pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      PORT : 4000
-      REDIS_HOST: ${{ secrets.REDIS_HOST }}
-      REDIS_PORT: ${{ secrets.REDIS_PORT }}
-      REDIS_PASS: ${{ secrets.REDIS_PASS }}
-      MONGO_CONNECTION_NAME : ${{ secrets.MONGO_CONNECTION_NAME }}
-      MONGO_HOST: ${{ secrets.MONGO_HOST }}
-      MONGO_PORT: ${{ secrets.MONGO_PORT }}
-      MONGO_DATABASE_TEST: ${{ secrets.MONGO_DATABASE_TEST }}
-      MONGO_USER: ${{ secrets.MONGO_USER }}
-      MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
-      MONGO_SSL: ${{ secrets.MONGO_SSL }}
-      MONGO_REPLICASET: ${{ secrets.MONGO_REPLICASET }}
-      MONGO_AUTH_SOURCE: ${{ secrets.MONGO_AUTH_SOURCE }}
     strategy:
       matrix:
         node-version: [14.18.1]
