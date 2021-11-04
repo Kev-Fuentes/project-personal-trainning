@@ -1,5 +1,3 @@
-
-
 const enumType = {
   BREAKFAST: 'breakfast',
   LUNCH: 'lunch',
@@ -26,18 +24,9 @@ const newFood = {
   type: enumType['LUNCH'],
 };
 
-const getAllContentFromFoods = async () => {
-  const response = await api.get('/api/v1/foods');
-  const names = response.body.foods.map((food) => food.name);
-  return {
-    response,
-    names,
-  };
-};
+
 
 module.exports = {
   initialFoods,
   newFood,
-  api,
-  getAllContentFromFoods,
 };
