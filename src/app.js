@@ -1,5 +1,5 @@
 'use strict';
-const path = process.env.NODE_ENV === 'production' ? null : `${__dirname}/../.env.dev`;
+const path = process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test' ? null : `${__dirname}/../.env.dev`;
 
 require('dotenv').config({ path });
 const express = require('express');

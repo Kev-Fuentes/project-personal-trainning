@@ -11,7 +11,7 @@ const settingPro = {
   password: REDIS_PASS,
 };
 
-const setting = process.env.NODE_ENV === 'production' ? settingPro : settingDev;
+const setting = process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test' ? settingPro : settingDev;
 
 const keyName = 'test:condorlabs-npm-helpers:counter';
 

@@ -34,7 +34,8 @@ const settingDev = {
   ssl: MONGO_SSL === '1',
 };
 
-const setting = process.env.NODE_ENV === 'production' ? settingPro : settingDev;
+const setting = process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test' ? settingPro : settingDev;
+
 const MongoDB = require('@condor-labs/mongodb')(setting);
 
 module.exports = {
