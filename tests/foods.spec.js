@@ -1,9 +1,6 @@
 const app = require('../src/app');
 const supertest = require('supertest');
 const api = supertest(app);
-const { MongoDB } = require('../src/config');
-const mongoose = MongoDB.mongoose;
-const redis = require('@condor-labs/redis')();
 const { initialFoods } = require('./helpers');
 const { stub } = require('sinon');
 const { Food } = require('../src/models');
@@ -30,11 +27,4 @@ describe(' GET FOODS', () => {
     const response = await api.get('/api/v1/foods');
     expect(response.body.foods).toHaveLength(initialFoods.length);
   });
-});
-
-
-afterAll(async () => {
-  const redisc = await redis.getClient();
-  await mongoose.disconnect();
-  await redisc.quit();
 });
