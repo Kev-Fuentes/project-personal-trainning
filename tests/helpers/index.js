@@ -1,5 +1,3 @@
-
-
 const enumType = {
   BREAKFAST: 'breakfast',
   LUNCH: 'lunch',
