@@ -1,10 +1,13 @@
+
+const app = require('../src/app');
+const supertest = require('supertest');
+const api = supertest(app);
 const { initialFoods } = require('./helpers');
 const { stub } = require('sinon');
 const { Food } = require('../src/models');
 const findFood = stub(Food, 'find');
-const app = require('../src/app');
-const supertest = require('supertest');
-const api = supertest(app);
+
+
 
 beforeEach(() => {
   findFood.resetHistory();

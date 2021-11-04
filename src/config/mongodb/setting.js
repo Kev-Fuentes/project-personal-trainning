@@ -35,7 +35,6 @@ const settingDev = {
 };
 
 const setting = process.env.NODE_ENV === 'production' ? settingPro : settingDev;
-
 const MongoDB = require('@condor-labs/mongodb')(setting);
 
 module.exports = {
