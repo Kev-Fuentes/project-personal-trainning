@@ -2,7 +2,6 @@ const app = require('../../src/app');
 const supertest = require('supertest');
 const api = supertest(app);
 
-
 const enumType = {
   BREAKFAST: 'breakfast',
   LUNCH: 'lunch',
@@ -43,5 +42,4 @@ module.exports = {
   newFood,
   api,
   getAllContentFromFoods,
-
 };

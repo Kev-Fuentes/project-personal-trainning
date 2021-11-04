@@ -1,18 +1,15 @@
-const { initialFoods, newFood, api } = require('./helpers');
-const { stub } = require('sinon')
-const { Food } = require('../src/models')
+const { initialFoods, api } = require('./helpers');
+const { stub } = require('sinon');
+const { Food } = require('../src/models');
 
-
-const findFood = stub(Food, 'find')
+const findFood = stub(Food, 'find');
 
 beforeEach(() => {
   findFood.resetHistory();
 });
 
-
 describe(' GET FOODS', () => {
   findFood.resolves(initialFoods);
-
 
   test('should repond with 200 status code', async () => {
     await api
@@ -25,8 +22,4 @@ describe(' GET FOODS', () => {
     const response = await api.get('/api/v1/foods');
     expect(response.body.foods).toHaveLength(initialFoods.length);
   });
-
-
 });
-
-

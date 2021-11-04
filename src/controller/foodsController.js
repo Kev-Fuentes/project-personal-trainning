@@ -9,10 +9,7 @@ const {
 } = require('../constants');
 
 const getFoods = async (req, res) => {
-
-
   try {
-
     const foods = await Food.find();
     res.status(OK).json({ foods, messages: SUCCESS });
   } catch (error) {
@@ -33,8 +30,6 @@ const getFoodById = async (req, res) => {
     const food = await Food.findById({ _id: id });
     client.set(id, JSON.stringify(food));
     return res.status(200).json({ food, messages: 'ok' });
-
-
   } catch (error) {
     logger.err('Error get food by id', error);
     res.status(404).json({ food: {}, messages: 'Not Found' });
@@ -74,7 +69,6 @@ const patchFoodById = async (req, res) => {
   const existsFoodById = await Food.findById({ _id: id });
   const client = await redis();
 
-
   if (!food) {
     return res.status(ERROR_404).json({ food, message: NOT_FOUND });
   }
@@ -91,7 +85,7 @@ const patchFoodById = async (req, res) => {
 
   try {
     const updateFood = await Food.findOneAndUpdate({ _id: id }, food, { new: true });
-    client.del(id)
+    client.del(id);
     res.status(OK).json({ food: updateFood, messages: SUCCESS });
   } catch (error) {
     res.status(ERROR_400).json({ foods: {}, messages: BAD_RESQUEST });
@@ -107,7 +101,7 @@ const deleteFoodById = async (req, res) => {
   }
   try {
     const deleteFood = await Food.findOneAndDelete({ _id: id });
-    client.del(id)
+    client.del(id);
     res.status(OK).json({ food: deleteFood, messages: SUCCESS });
   } catch (error) {
     logger.err('Error delete food', error);
