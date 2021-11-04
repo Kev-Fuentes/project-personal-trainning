@@ -20,7 +20,6 @@ jobs:
     - run: npm run lint-global
     - run: npm test
       env:
-        CI: true
         PORT : 4000
         REDIS_HOST: ${{ secrets.REDIS_HOST }}
         REDIS_PORT: ${{ secrets.REDIS_PORT }}
