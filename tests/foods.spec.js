@@ -3,6 +3,7 @@ const { stub } = require('sinon');
 const { Food } = require('../src/models');
 
 const findFood = stub(Food, 'find');
+jest.useFakeTimers()
 
 beforeEach(() => {
   findFood.resetHistory();
