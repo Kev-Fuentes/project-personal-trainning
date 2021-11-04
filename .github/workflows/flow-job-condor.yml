@@ -18,7 +18,6 @@ jobs:
       MONGO_SSL: ${{ secrets.MONGO_SSL }}
       MONGO_REPLICASET: ${{ secrets.MONGO_REPLICASET }}
       MONGO_AUTH_SOURCE: ${{ secrets.MONGO_AUTH_SOURCE }}
-      MONGO_DATABASE_TEST: ${{ secrets.MONGO_DATABASE_TEST }}
     strategy:
       matrix:
         node-version: [14.18.1]
