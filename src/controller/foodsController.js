@@ -12,10 +12,8 @@ const getFoods = async (req, res) => {
 
 
   try {
-    console.log(Food);
+
     const foods = await Food.find();
-
-
     res.status(OK).json({ foods, messages: SUCCESS });
   } catch (error) {
     logger.err('Error get food', error);
