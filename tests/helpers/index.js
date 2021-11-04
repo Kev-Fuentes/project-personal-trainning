@@ -1,9 +1,7 @@
 const app = require('../../src/app');
 const supertest = require('supertest');
 const api = supertest(app);
-const { MongoDB } = require('../../src/config');
-const mongoose = MongoDB.mongoose;
-const redis = require('@condor-labs/redis')();
+
 
 const enumType = {
   BREAKFAST: 'breakfast',
@@ -45,6 +43,5 @@ module.exports = {
   newFood,
   api,
   getAllContentFromFoods,
-  mongoose,
-  redis,
+
 };
