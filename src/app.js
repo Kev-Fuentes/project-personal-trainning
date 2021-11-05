@@ -11,6 +11,8 @@ const { healthMonitor } = require('@condor-labs/health-middleware');
 
 const app = express();
 
+
+
 healthMonitor(app);
 
 app.use(express.json());
