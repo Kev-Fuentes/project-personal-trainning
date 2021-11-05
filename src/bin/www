@@ -7,10 +7,10 @@ const { getEnv } = require('../helpers')
 const connectRedis = require('../config/redis/connet')
 const connetMongo = require('../config/mongodb/connet')
 
+connetMongo()
+connectRedis()
 
 app.listen(PORT, () => {
     logger.info(`Server is running on port ${PORT}`);
     getEnv();
 })
-connetMongo()
-connectRedis()

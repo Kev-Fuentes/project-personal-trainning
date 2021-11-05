@@ -1,5 +1,4 @@
 'use strict';
-require('../config/mongodb/connet');
 const { MongoDB } = require('../config');
 const mongoose = MongoDB.mongoose;
 

@@ -20,7 +20,7 @@ const getFoods = async (req, res) => {
 
 const getFoodById = async (req, res) => {
   const { id } = req.params;
-  const client = await redis();
+  const client = await redis.getClient();
   const reply = await client.get(id);
   if (reply) {
     return res.status(OK).json({ food: JSON.parse(reply), messages: SUCCESS });
@@ -67,7 +67,9 @@ const patchFoodById = async (req, res) => {
   const errors = validations.error?.details ?? false;
   const existsFoodbByName = await Food.find({ name: food.name });
   const existsFoodById = await Food.findById({ _id: id });
-  const client = await redis();
+  const client = await redis.getClient();
+  console.log(existsFoodbByName);
+  console.log(existsFoodById);
 
   if (!food) {
     return res.status(ERROR_404).json({ food, message: NOT_FOUND });
@@ -95,7 +97,7 @@ const patchFoodById = async (req, res) => {
 const deleteFoodById = async (req, res) => {
   const { id } = req.params;
   const existsFood = await Food.findById({ _id: id });
-  const client = await redis();
+  const client = await redis.getClient();
   if (!existsFood) {
     return res.status(404).json({ foods: {}, messages: NOT_FOUND });
   }
