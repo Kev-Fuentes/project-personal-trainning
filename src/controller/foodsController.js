@@ -1,6 +1,7 @@
 'use strict';
 const { Food } = require('../models');
 const { schemaPostFood, schemaPatchFood } = require('../schemas');
+const { redis } = require('../config');
 const logger = require('@condor-labs/logger');
 
 const {
@@ -19,11 +20,16 @@ const getFoods = async (req, res) => {
 
 const getFoodById = async (req, res) => {
   const { id } = req.params;
+  const client = await redis.getClient();
+  const reply = await client.get(id);
+  if (reply) {
+    return res.status(OK).json({ food: JSON.parse(reply), messages: SUCCESS });
+  }
+
   try {
     const food = await Food.findById({ _id: id });
-    if (food) {
-      return res.status(200).json({ food, messages: 'ok' });
-    }
+    client.set(id, JSON.stringify(food));
+    return res.status(200).json({ food, messages: 'ok' });
   } catch (error) {
     logger.err('Error get food by id', error);
     res.status(404).json({ food: {}, messages: 'Not Found' });
@@ -61,6 +67,10 @@ const patchFoodById = async (req, res) => {
   const errors = validations.error?.details ?? false;
   const existsFoodbByName = await Food.find({ name: food.name });
   const existsFoodById = await Food.findById({ _id: id });
+  const client = await redis.getClient();
+  console.log(existsFoodbByName);
+  console.log(existsFoodById);
+
   if (!food) {
     return res.status(ERROR_404).json({ food, message: NOT_FOUND });
   }
@@ -77,6 +87,7 @@ const patchFoodById = async (req, res) => {
 
   try {
     const updateFood = await Food.findOneAndUpdate({ _id: id }, food, { new: true });
+    client.del(id);
     res.status(OK).json({ food: updateFood, messages: SUCCESS });
   } catch (error) {
     res.status(ERROR_400).json({ foods: {}, messages: BAD_RESQUEST });
@@ -86,11 +97,13 @@ const patchFoodById = async (req, res) => {
 const deleteFoodById = async (req, res) => {
   const { id } = req.params;
   const existsFood = await Food.findById({ _id: id });
+  const client = await redis.getClient();
   if (!existsFood) {
     return res.status(404).json({ foods: {}, messages: NOT_FOUND });
   }
   try {
     const deleteFood = await Food.findOneAndDelete({ _id: id });
+    client.del(id);
     res.status(OK).json({ food: deleteFood, messages: SUCCESS });
   } catch (error) {
     logger.err('Error delete food', error);
