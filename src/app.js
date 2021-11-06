@@ -29,7 +29,7 @@ app.use(
 
 app.use('/', (req, res) => {
   res.send({
-    service: 'RESTAURANT REST API new',
+    service: 'RESTAURANT REST API',
     server: '/api/v1/foods',
     graphql: '/graphql/v1/foods/',
   });
