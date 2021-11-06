@@ -2,7 +2,7 @@
 const Joi = require('joi');
 
 const schemaPostFood = Joi.object({
-  name: Joi.string().alphanum().min(4).max(30).required(),
+  name: Joi.string().min(4).max(30).required(),
   price: Joi.number().min(1).required(),
   type: Joi.string().valid('breakfast', 'lunch', 'dinner', 'fast food').required(),
   available: Joi.boolean().default(true).optional(),

@@ -6,13 +6,22 @@ services:
       context: .
       dockerfile: ./Dockerfile
     ports:
-       - 4000:4000 
+       - 4000:4000
+    depends_on:
+      - redis-server
+      - mongo-server
+    volumes:
+       - ./data:/data/app
   redis-server: 
       image: redis:5.0
       command: redis-server
+      volumes:
+       - ./data:/data/redis
       
   mongo-server:
       image: mongo:5.0.2
+      volumes:
+       - ./data:/data/mongo
  
 
    

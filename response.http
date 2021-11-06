@@ -3,7 +3,7 @@ GET http://localhost:4000/api/v1/foods/
 
 ### GET BY ID
 
-GET http://localhost:4000/api/v1/foods/6181c6b11cc68232e5095959
+GET http://localhost:4000/api/v1/foods/6186b6b75999f712e6ce8aaa
 
 
 
@@ -12,20 +12,20 @@ POST http://localhost:4000/api/v1/foods/
 content-type: application/json
 
 {
-    "name": "Asado",
+    "name": "Perrito caliente",
     "price": "6",
     "type":"fast food"
 }
 
 
 ### PATCH FOOD
-PATCH   http://localhost:4000/api/v1/foods/617abecb5e44680d6020d7e9  
+PATCH   http://localhost:4000/api/v1/foods/6186b6b75999f712e6ce8aaa
 content-type: application/json
 
 {
-    "name": "Hamburgesa"
+    "name": "Pizza"
 }
 
 ### DELETE FOOD
-DELETE   http://localhost:4000/api/v1/foods/617ef91dbd2c3e0b728d7102
+DELETE   http://localhost:4000/api/v1/foods/6186b6b75999f712e6ce8aaa
 

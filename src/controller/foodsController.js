@@ -28,6 +28,7 @@ const getFoodById = async (req, res) => {
 
   try {
     const food = await Food.findById({ _id: id });
+    if (!food) return res.status(404).json({ food: {}, messages: 'Not Found' });
     client.set(id, JSON.stringify(food));
     return res.status(200).json({ food, messages: 'ok' });
   } catch (error) {
@@ -68,8 +69,7 @@ const patchFoodById = async (req, res) => {
   const existsFoodbByName = await Food.find({ name: food.name });
   const existsFoodById = await Food.findById({ _id: id });
   const client = await redis.getClient();
-  console.log(existsFoodbByName);
-  console.log(existsFoodById);
+
 
   if (!food) {
     return res.status(ERROR_404).json({ food, message: NOT_FOUND });
