@@ -15,7 +15,7 @@ jobs:
         uses: easingthemes/ssh-deploy@v2.1.5
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-          SOURCE: "./"
+          SOURCE: "./src"
           REMOTE_HOST: "ec2-54-174-5-169.compute-1.amazonaws.com"
           REMOTE_USER: "ubuntu"
-          TARGET: "/home/ubuntu/project-personal-trainning"
+          TARGET: "/home/ubuntu/app/project-personal-trainning"
