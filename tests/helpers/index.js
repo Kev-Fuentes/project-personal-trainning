@@ -20,6 +20,12 @@ const initialFoods = [
   },
 ];
 
+
+const createInitialFood = [...initialFoods]
+
+const deleteInitialFood = [...initialFoods]
+
+
 const newFood = {
   name: 'Asado',
   price: 2,
@@ -31,4 +37,6 @@ const newFood = {
 module.exports = {
   initialFoods,
   newFood,
+  createInitialFood,
+  deleteInitialFood
 };
