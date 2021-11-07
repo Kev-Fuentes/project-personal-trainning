@@ -7,16 +7,7 @@ const resolvers = {
   Query: {
     foods: async () => {
       try {
-        const client = await redis();
-        const reply = await client.get('food');
-
-        if (reply) {
-          return JSON.params(reply);
-        }
-
         const foods = await Food.find();
-
-        await client.set('foods', JSON.stringify(foods));
         return foods;
       } catch (error) {
         logger.err('Error get food by GraphQL', error);
@@ -26,8 +17,18 @@ const resolvers = {
 
     foodById: async (_, { id }) => {
       try {
-        const foods = await Food.findById({ _id: id });
-        return foods;
+        const client = await redis.getClient();
+        const reply = await client.get(id);
+        if (reply) {
+          return JSON.parse(reply);
+        }
+        const food = await Food.findById({ _id: id });
+        if (!food) {
+          logger.err('Error get food by id GraphQL');
+          return food;
+        }
+        client.set(id, JSON.stringify(food));
+        return food;
       } catch (error) {
         logger.err('Error get food by id GraphQL', error);
         return [];
@@ -47,8 +48,11 @@ const resolvers = {
       }
     },
     updateFood: async (_, { _id, input }) => {
+      const client = await redis.getClient();
       try {
-        return await Food.findByIdAndUpdate(_id, input, { new: true });
+        const food = await Food.findByIdAndUpdate({ _id }, input, { new: true });
+        client.del(_id);
+        return food;
       } catch (error) {
         logger.err('Error get food by id GraphQL', error);
         return [];
@@ -56,8 +60,11 @@ const resolvers = {
     },
 
     deleteFood: async (_, { _id }) => {
+      const client = await redis.getClient();
       try {
-        return await Food.findByIdAndDelete(_id);
+        const food = await Food.findByIdAndDelete(_id);
+        client.del(_id);
+        return food;
       } catch (error) {
         logger.err('Error get food by id GraphQL', error);
         return [];
