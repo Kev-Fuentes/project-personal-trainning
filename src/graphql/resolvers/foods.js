@@ -7,8 +7,6 @@ const resolvers = {
   Query: {
     foods: async () => {
       try {
-
-
         const foods = await Food.find();
         return foods;
       } catch (error) {
@@ -26,7 +24,7 @@ const resolvers = {
         }
         const food = await Food.findById({ _id: id });
         if (!food) {
-          logger.err('Error get food by id GraphQL', error);
+          logger.err('Error get food by id GraphQL');
           return food;
         }
         client.set(id, JSON.stringify(food));
@@ -54,7 +52,7 @@ const resolvers = {
       try {
         const food = await Food.findByIdAndUpdate({ _id }, input, { new: true });
         client.del(_id);
-        return food
+        return food;
       } catch (error) {
         logger.err('Error get food by id GraphQL', error);
         return [];
@@ -66,7 +64,7 @@ const resolvers = {
       try {
         const food = await Food.findByIdAndDelete(_id);
         client.del(_id);
-        return food
+        return food;
       } catch (error) {
         logger.err('Error get food by id GraphQL', error);
         return [];

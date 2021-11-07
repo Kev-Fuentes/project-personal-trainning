@@ -18,4 +18,4 @@ function connetMongo() {
   })();
 }
 
-module.exports = connetMongo
+module.exports = connetMongo;

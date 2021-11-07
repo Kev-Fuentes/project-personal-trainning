@@ -20,11 +20,9 @@ const initialFoods = [
   },
 ];
 
+const createInitialFood = [...initialFoods];
 
-const createInitialFood = [...initialFoods]
-
-const deleteInitialFood = [...initialFoods]
-
+const deleteInitialFood = [...initialFoods];
 
 const newFood = {
   name: 'Asado',
@@ -32,11 +30,9 @@ const newFood = {
   type: enumType['LUNCH'],
 };
 
-
-
 module.exports = {
   initialFoods,
   newFood,
   createInitialFood,
-  deleteInitialFood
+  deleteInitialFood,
 };
