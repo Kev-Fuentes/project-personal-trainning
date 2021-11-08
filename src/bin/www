@@ -2,12 +2,14 @@
 
 const app = require('../app');
 const PORT = process.env.PORT || 3000
+const HTTPS_PORT = process.env.HTTPS_PORT || 433
 const logger = require('@condor-labs/logger');
 const { getEnv } = require('../helpers')
 const connectRedis = require('../config/redis/connet')
 const connetMongo = require('../config/mongodb/connet')
 const fs = require('fs');
-const http = require('http');
+const http = require('https');
+const https = require('https');
 
 
 const httpsServerOptions = {
@@ -18,7 +20,12 @@ const httpsServerOptions = {
 connetMongo()
 connectRedis()
 
-http.createServer(httpsServerOptions, app).listen(PORT, () => {
+http.createServer(app).listen(PORT, () => {
     logger.info(`Server is running on port ${PORT}`);
     getEnv();
+})
+
+
+https.createServer(httpsServerOptions, app).listen(HTTPS_PORT, () => {
+    logger.info(`Server is running https ${HTTPS_PORT}`);
 })
