@@ -1,10 +1,10 @@
-const app = require('../src/app');
+const app = require('../app');
 const supertest = require('supertest');
 const api = supertest(app);
 const { initialFoods, newFood, createInitialFood, deleteInitialFood } = require('./helpers');
 const { stub } = require('sinon');
-const { Food } = require('../src/models');
-const { redis } = require('../src/config');
+const { Food } = require('../models');
+const { redis } = require('../config');
 const [foodById] = initialFoods;
 const newFoodTest = Food(newFood);
 const deleteOneFood = deleteInitialFood.filter((food) => food.id !== foodById.id);
