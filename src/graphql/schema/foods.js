@@ -8,20 +8,12 @@ type Query {
     foodById(id: ID): Foods
 }
 type Foods {
-    id:ID
+    _id:ID
     name:String!
     price:Int!
     type:String!
     available:Boolean
 }
-type Foods {
-    id:ID
-    name:String!
-    price:Int!
-    type:String!
-    available:Boolean
-}
-
 
 type Mutation {
     postFood(input: FoodsInput):Foods

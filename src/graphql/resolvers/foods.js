@@ -24,7 +24,7 @@ const resolvers = {
         }
         const food = await Food.findById({ _id: id });
         if (!food) {
-          logger.err('Error get food by id GraphQL');
+          logger.err('Error get food by id GraphQL', food);
           return food;
         }
         client.set(id, JSON.stringify(food));
@@ -39,6 +39,13 @@ const resolvers = {
   Mutation: {
     postFood: async (_, { input }) => {
       try {
+        const food = await Food.find({ name: input.name });
+
+        if (food.length) {
+          const [existsFood] = food;
+          logger.err('food already exists', food);
+          return existsFood;
+        }
         const newfood = await new Food(input);
         newfood.save();
         return newfood;
@@ -49,6 +56,18 @@ const resolvers = {
     },
     updateFood: async (_, { _id, input }) => {
       const client = await redis.getClient();
+      const existsFoodbByName = await Food.find({ name: input.name });
+
+      if (!Object.entries(input).length) {
+        logger.err('food is a objet empty', input);
+        return [];
+      }
+
+      if (existsFoodbByName.length) {
+        logger.err('no repeat food name', existsFoodbByName);
+        return existsFoodbByName;
+      }
+
       try {
         const food = await Food.findByIdAndUpdate({ _id }, input, { new: true });
         client.del(_id);

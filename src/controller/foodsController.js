@@ -69,15 +69,8 @@ const patchFoodById = async (req, res) => {
   const validations = schemaPatchFood.validate(food);
   const errors = validations.error?.details ?? false;
   const existsFoodbByName = await Food.find({ name: food.name });
-  const existsFoodById = await Food.findById({ _id: id });
   const client = await redis.getClient();
 
-  if (!food) {
-    return res.status(ERROR_404).json({ food, message: NOT_FOUND });
-  }
-  if (!existsFoodById) {
-    return res.status(ERROR_404).json({ food: {}, message: NOT_FOUND });
-  }
   if (existsFoodbByName.length) {
     return res.status(ERROR_404).json({ food: existsFoodbByName, message: EXISTING_RESOURCE });
   }
@@ -99,6 +92,7 @@ const deleteFoodById = async (req, res) => {
   const { id } = req.params;
   const existsFood = await Food.findById({ _id: id });
   const client = await redis.getClient();
+
   if (!existsFood) {
     return res.status(404).json({ foods: {}, messages: NOT_FOUND });
   }

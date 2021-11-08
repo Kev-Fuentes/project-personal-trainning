@@ -106,7 +106,6 @@ describe(' POST FOOD', () => {
 
 describe(' DELETE FOOD', () => {
   test('should repond with  delete food', async () => {
-    findFood.resolves([]);
     await api.delete(`/api/v1/foods/${foodById.id}`).expect(200);
 
     findFood.resolves(deleteOneFood);

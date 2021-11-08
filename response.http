@@ -19,11 +19,11 @@ content-type: application/json
 
 
 ### PATCH FOOD
-PATCH   http://localhost:4000/api/v1/foods/6186b6b75999f712e6ce8aaa
+PATCH   http://localhost:4000/api/v1/foods/6188ba276c169e28f4f758e
 content-type: application/json
 
 {
-    "name": "Pizza"
+  "type":"dinner"
 }
 
 ### DELETE FOOD

@@ -13,7 +13,7 @@ const settingPro = {
 
 const setting = process.env.NODE_ENV === 'production' ? settingPro : settingDev;
 
-const keyName = 'test:condorlabs-npm-helpers:counter';
+const keyName = 'app:restaurant:comdorlabs';
 
 module.exports = {
   setting,
