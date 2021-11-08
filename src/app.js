@@ -18,7 +18,7 @@ app.use(cors());
 
 app.use('/api/v1/', foodsRouter);
 app.use(
-  '/graphql/v1/foods/',
+  '/graphql/v1/foods',
   graphqlHTTP({
     graphiql: true,
     schema,
