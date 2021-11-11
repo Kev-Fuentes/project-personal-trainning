@@ -7,13 +7,13 @@ const enumType = {
 
 const initialFoods = [
   {
-    id: 1,
+    id: '618c12a6adeb13145f97bee8',
     name: 'Pizza',
     price: 2,
     type: enumType['FASTFOOT'],
   },
   {
-    id: 2,
+    id: '718c12a6adeb13145f97bee8',
     name: 'Hamburgesa',
     price: 2,
     type: enumType['FASTFOOT'],
