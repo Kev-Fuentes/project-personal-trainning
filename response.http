@@ -1,5 +1,5 @@
 ### GET FOOD
-GET http://localhost:4000/api/v1/foods?page=1&limit=10
+GET http://localhost:4000/api/v1/foods?page=2&limit=10
 
 ### GET BY ID
 
@@ -12,7 +12,7 @@ POST http://localhost:4000/api/v1/foods/
 content-type: application/json
 
 {
-    "name": "Papas  rellenas",
+    "name": "Sandwich con jamon y queso",
     "price": "2",
     "type":"fast food"
 }
