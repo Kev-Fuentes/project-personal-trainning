@@ -3,18 +3,19 @@ const supertest = require('supertest');
 const api = supertest(app);
 const { initialFoods, newFood, createInitialFood, deleteInitialFood } = require('./helpers');
 const { stub } = require('sinon');
-const { Food } = require('../models');
 const { redis } = require('../config');
+const { FoodRepository } = require('../repositories');
 const [foodById] = initialFoods;
-const newFoodTest = Food(newFood);
+
 const deleteOneFood = deleteInitialFood.filter((food) => food.id !== foodById.id);
 
-const findFood = stub(Food, 'find');
-const findFoodById = stub(Food, 'findById');
+const findFood = stub(FoodRepository, 'getfoodPagination');
+const findFoodById = stub(FoodRepository, 'getById');
+const findByName = stub(FoodRepository, 'getFoodName');
 const redisClient = stub(redis, 'getClient');
-const findOneAndUpdate = stub(Food, 'findOneAndUpdate');
-const foodSave = stub(newFoodTest, 'save');
-const deleteFood = stub(Food, 'findOneAndDelete');
+const findOneAndUpdate = stub(FoodRepository, 'patch');
+const foodSave = stub(FoodRepository, 'post');
+const deleteFood = stub(FoodRepository, 'del');
 
 beforeEach(() => {
   foodSave.resolves(createInitialFood.push({ ...newFood, id: 3 }));
@@ -27,6 +28,7 @@ beforeEach(() => {
   });
   deleteFood.resolves(deleteOneFood);
   findFoodById.resolves(foodById);
+  findByName.resolves(foodById);
 });
 
 describe(' GET FOODS', () => {
@@ -49,6 +51,7 @@ describe('GET FOOD BY ID', () => {
     const [food] = response.body.foods;
     await api
       .get(`/api/v1/foods/${food.id}`)
+      .expect(200)
       .expect('Content-Type', /application\/json/)
       .then((response) => {
         expect(response.body.food.name).toBe(food.name);
@@ -121,4 +124,5 @@ afterEach(() => {
   deleteFood.resetHistory();
   findOneAndUpdate.resetHistory();
   foodSave.resetHistory();
+  findByName.resetHistory();
 });

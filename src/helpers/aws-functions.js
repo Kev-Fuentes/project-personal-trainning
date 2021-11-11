@@ -1,3 +1,4 @@
+'use strict';
 const logger = require('@condor-labs/logger');
 const axios = require('axios');
 

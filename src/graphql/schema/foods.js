@@ -4,9 +4,13 @@ const resolvers = require('../resolvers/foods');
 
 const typeDefs = `
 type Query {
+
     foods:[Foods]
+    foodsPagination(page: Int! , limit: Int!): [Foods]
     foodById(id: ID): Foods
 }
+
+
 type Foods {
     _id:ID
     name:String!
