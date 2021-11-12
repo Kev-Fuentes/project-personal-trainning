@@ -4,7 +4,7 @@ const path = process.env.NODE_ENV === 'production' ? null : `${__dirname}/../.en
 require('dotenv').config({ path });
 const express = require('express');
 const cors = require('cors');
-const { foodsRouter } = require('./routes');
+const { foodsRouter, authRouter } = require('./routes');
 const { graphqlHTTP } = require('express-graphql');
 const { foodsSchema: schema } = require('./graphql/schema');
 const { healthMonitor } = require('@condor-labs/health-middleware');
@@ -12,11 +12,11 @@ const { healthMonitor } = require('@condor-labs/health-middleware');
 const app = express();
 
 healthMonitor(app);
-
 app.use(express.json());
 app.use(cors());
 
-app.use('/api/v1/', foodsRouter);
+app.use('/api/v1/', [foodsRouter, authRouter]);
+
 app.use(
   '/graphql/v1/foods',
   graphqlHTTP({

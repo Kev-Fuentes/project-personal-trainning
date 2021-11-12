@@ -14,7 +14,7 @@ const getFoods = async (req, res) => {
 
   const error = validateJoi(schemaGetFood, { page, limit });
   if (error) {
-    return res.status(ERROR_404).json({ foods: [], message: error });
+    return res.status(ERROR_400).json({ foods: [], message: error });
   }
   try {
     const foods = await FoodRepository.getfoodPagination(page, limit);
@@ -28,13 +28,14 @@ const getFoods = async (req, res) => {
 const getFoodById = async (req, res) => {
   const { id } = req.params;
   const client = await redis.getClient();
-  const foodCache = await client.get(id);
-
   const error = validateJoi(schemaGetFoodById, { _id: id });
 
   if (error) {
-    return res.status(ERROR_404).json({ foods: [], message: error });
+    return res.status(ERROR_400).json({ foods: [], message: error });
   }
+
+  const foodCache = await client.get(id);
+
   if (foodCache) {
     return res.status(OK).json({ food: JSON.parse(foodCache), messages: SUCCESS });
   }
@@ -42,29 +43,29 @@ const getFoodById = async (req, res) => {
   try {
     const food = await FoodRepository.getById({ _id: id });
     if (!food) {
-      return res.status(404).json({ food: {}, messages: NOT_FOUND });
+      return res.status(ERROR_404).json({ food: {}, messages: NOT_FOUND });
     }
     client.set(id, JSON.stringify(food));
-    return res.status(200).json({ food, messages: SUCCESS });
+    return res.status(OK).json({ food, messages: SUCCESS });
   } catch (error) {
     logger.err('Error get food by id', error);
-    res.status(404).json({ food: {}, messages: NOT_FOUND });
+    res.status(ERROR_404).json({ food: {}, messages: NOT_FOUND });
   }
 };
 
 const postFood = async (req, res) => {
   const food = req.body;
-  const existsFood = await FoodRepository.getFoodName({ name: food.name });
   const error = validateJoi(schemaPostFood, food);
 
+
+
+  if (error) {
+    return res.status(ERROR_400).json({ foods: [], message: error });
+  }
+  const existsFood = await FoodRepository.getFoodName({ name: food.name });
   if (existsFood.length) {
     return res.status(ERROR_404).json({ food: existsFood, message: EXISTING_RESOURCE });
   }
-
-  if (error) {
-    return res.status(ERROR_404).json({ foods: [], message: error });
-  }
-
   try {
     const newFood = await FoodRepository.post(food);
     res.status(CREATE).json({ food: newFood, messages: SUCCESS });
@@ -81,14 +82,14 @@ const patchFoodById = async (req, res) => {
   const client = await redis.getClient();
 
   if (error) {
-    return res.status(ERROR_404).json({ foods: [], message: error });
+    return res.status(ERROR_400).json({ foods: [], message: error });
   }
 
   const existsFood = await FoodRepository.getById({ _id: id });
   const existsFoodbByName = await FoodRepository.getFoodName({ name: food.name });
 
   if (!existsFood) {
-    return res.status(404).json({ foods: {}, messages: NOT_FOUND });
+    return res.status(ERROR_404).json({ foods: {}, messages: NOT_FOUND });
   }
 
   if (existsFoodbByName.length) {
@@ -110,12 +111,12 @@ const deleteFoodById = async (req, res) => {
   const error = validateJoi(schemaDeleteFood, { _id: id });
 
   if (error) {
-    return res.status(ERROR_404).json({ foods: [], message: error });
+    return res.status(ERROR_400).json({ foods: [], message: error });
   }
   const existsFood = await FoodRepository.getById({ _id: id });
 
   if (!existsFood) {
-    return res.status(404).json({ foods: {}, messages: NOT_FOUND });
+    return res.status(ERROR_404).json({ foods: {}, messages: NOT_FOUND });
   }
   try {
     FoodRepository.del({ _id: id });

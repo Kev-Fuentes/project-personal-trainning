@@ -10,14 +10,13 @@ const {
   MONGO_SSL,
   MONGO_USER,
   MONGO_PORT,
-  MONGO_DATABASE_TEST,
 } = process.env;
 
 const settingPro = {
   connectionName: MONGO_CONNECTION_NAME,
   host: MONGO_HOST,
   port: parseInt(MONGO_PORT),
-  database: process.env.NODE_ENV === 'test' ? MONGO_DATABASE_TEST : MONGO_DATABASE,
+  database: MONGO_DATABASE,
   user: MONGO_USER,
   password: MONGO_PASSWORD,
   ssl: MONGO_SSL === '1',
