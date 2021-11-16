@@ -3,7 +3,7 @@ const { foodsController } = require('../controller');
 const { FoodRepository } = require('../repositories');
 const { redis } = require('../config');
 const { stub } = require('sinon');
-const { builderFood, idBuild, newFood, updateFoodBuild } = require('./utils/utils');
+const { builderFood, idBuild, newFood, updateFoodBuild, dataPagination } = require('./utils/utils');
 
 jest.mock('../repositories');
 
@@ -17,7 +17,6 @@ describe('Food controller', () => {
   describe('get Food', () => {
 
     it('It should return a food and response http status 200', async () => {
-      const food = builderFood(idBuild);
       const req = { query: { page: 1, limit: 10 } };
       const res = {
         status: jest.fn(() => res),
@@ -25,18 +24,20 @@ describe('Food controller', () => {
       };
 
       FoodRepository.getfoodPagination.mockImplementation((page, limit) => {
-        return [food].slice((page - 1) * limit, page * limit);
+        return dataPagination.slice((page - 1) * limit, page * limit);
       });
 
       await foodsController.getFoods(req, res);
 
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.status).toHaveBeenCalledTimes(1);
-      expect(res.json).toHaveBeenCalledWith({ foods: [food], messages: 'OK' });
+      expect(FoodRepository.getfoodPagination(req.query.page, req.query.limit)).toHaveLength(dataPagination.length);
+      expect(res.json).toHaveBeenCalledWith({ foods: dataPagination, messages: 'OK' });
       expect(res.json).toHaveBeenCalledTimes(1);
+
     });
 
-    it('Error on server', async () => {
+    it('Error on server get', async () => {
       const req = { query: { page: 1, limit: 10 } };
       const res = {
         status: jest.fn(() => res),
@@ -119,7 +120,7 @@ describe('Food controller', () => {
       expect(res.json).toHaveBeenCalledTimes(1);
     });
 
-    it('Error on server', async () => {
+    it('Error on server getbyid', async () => {
 
       const id = idBuild;
       const req = { params: { id } };
@@ -168,7 +169,7 @@ describe('Food controller', () => {
       expect(res.json).toHaveBeenCalledTimes(1);
     });
 
-    it('It should return error', async () => {
+    it('It should return error post', async () => {
       const req = { body: { food: {} } };
       const res = {
         status: jest.fn(() => res),
@@ -220,7 +221,7 @@ describe('Food controller', () => {
       expect(res.json).toHaveBeenCalledTimes(1);
     });
 
-    it('It should return error', async () => {
+    it('It should return error update', async () => {
       const res = {
         status: jest.fn(() => res),
         json: jest.fn(() => res),
@@ -266,7 +267,7 @@ describe('Food controller', () => {
     });
   });
 
-  it('It should return error', async () => {
+  it('It should return error in delete', async () => {
     const res = {
       status: jest.fn(() => res),
       json: jest.fn(() => res),

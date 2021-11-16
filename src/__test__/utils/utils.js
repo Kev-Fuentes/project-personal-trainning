@@ -5,6 +5,84 @@ const enumType = {
   FASTFOOT: 'fast food',
 };
 
+
+const dataPagination = [
+  {
+    _id: 1,
+    name: 'hot dog',
+    price: 2,
+    available: true,
+    type: enumType['FASTFOOT'],
+  },
+  {
+    _id: 2,
+    name: 'pizza',
+    price: 2,
+    available: true,
+    type: enumType['FASTFOOT'],
+  }
+  ,
+  {
+    _id: 3,
+    name: 'hamburguesa',
+    price: 2,
+    available: true,
+    type: enumType['FASTFOOT'],
+  }
+  ,
+  {
+    _id: 4,
+    name: 'wafles',
+    price: 3,
+    available: true,
+    type: enumType['FASTFOOT'],
+  }
+  , {
+    _id: 5,
+    name: 'salchi papas',
+    price: 2,
+    available: true,
+    type: enumType['FASTFOOT'],
+  }
+  , {
+    _id: 6,
+    name: 'alistas con papa',
+    price: 4,
+    available: true,
+    type: enumType['FASTFOOT'],
+  }
+  , {
+    _id: 7,
+    name: 'arepa de huevo',
+    price: 2,
+    available: true,
+    type: enumType['FASTFOOT'],
+  }
+  , {
+    _id: 8,
+    name: 'empanadas',
+    price: 1,
+    available: true,
+    type: enumType['FASTFOOT'],
+  }
+  , {
+    _id: 9,
+    name: 'arroz chino',
+    price: 3,
+    available: true,
+    type: enumType['FASTFOOT'],
+  }
+  , {
+    _id: 10,
+    name: 'asado',
+    price: 4,
+    available: true,
+    type: enumType['FASTFOOT'],
+  }
+
+
+]
+
 const builderFood = (id) => {
   return {
     _id: id,
@@ -77,4 +155,5 @@ module.exports = {
   newFoodBuild,
   updateFoodBuild,
   idPost,
+  dataPagination
 };
