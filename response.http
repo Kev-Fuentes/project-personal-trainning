@@ -1,15 +1,16 @@
 ### GET FOOD
-GET http://localhost:4000/api/v1/foods?page=2&limit=10
+GET http://localhost:4000/api/v1/foods?page=1&limit=10
 
 ### GET BY ID
 
-GET http://localhost:4000/api/v1/foods/618c12a6adeb13145f97bee8
+GET http://localhost:4000/api/v1/foods/618c7065fc3ae86aae415a6a
 
 
 
 ### POST FOOD
 POST http://localhost:4000/api/v1/foods/  
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoia2V2aW4iLCJyb2wiOiJhZG1pbiIsImlhdCI6MTYzNjY1NTc2MX0.D2ldLCmmBS_IKkTP0oFJCBaJ9IVQsOjsopDEAZ2vvys
 
 {
     "name": "Sandwich con jamon y queso",
@@ -19,13 +20,15 @@ content-type: application/json
 
 
 ### PATCH FOOD
-PATCH   http://localhost:4000/api/v1/foods/618c12a6adeb13145f97bee
+PATCH   http://localhost:4000/api/v1/foods/618c706efc3ae86aae415a6b
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoia2V2aW4iLCJyb2wiOiJhZG1pbiIsImlhdCI6MTYzNjY1NTc2MX0.D2ldLCmmBS_IKkTP0oFJCBaJ9IVQsOjsopDEAZ2vvys
 
 {
   "name":"queso"
 }
 
 ### DELETE FOOD
-DELETE   http://localhost:4000/api/v1/foods/6186b7485999f712e6ce8aab
+DELETE   http://localhost:4000/api/v1/foods/618c706efc3ae86aae415a6b
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoia2V2aW4iLCJyb2wiOiJhZG1pbiIsImlhdCI6MTYzNjY1NTc2MX0.D2ldLCmmBS_IKkTP0oFJCBaJ9IVQsOjsopDEAZ2vvys
 
