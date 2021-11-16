@@ -52,7 +52,6 @@ const resolvers = {
   },
   findOneAndUpdate: async (id, entity) => {
     const [updateModel] = [food].map((food) => {
-      console.log("🚀 ~ file: utils.js ~ line 61 ~ const[updateModel]=[food].map ~ entity", food)
       if (food._id === id) {
         return {
           ...food,
