@@ -6,63 +6,77 @@ const enumType = {
 };
 
 const builderFood = (id) => {
-
   return {
-    id,
+    _id: id,
     name: 'pizza',
     price: 2,
     available: true,
     type: enumType['FASTFOOT'],
-  }
+  };
 };
-const idBuild = '718c12a6adeb13145f97bee8'
-const food = builderFood(idBuild)
 
+const idBuild = '718c12a6adeb13145f97bee8';
+const idPost = '718c12a6adeb13145f97bae1';
 
-function Food() {
+const food = builderFood(idBuild);
 
+const newFoodBuild = {
+  name: 'Hamburgesa',
+  price: 2,
+  type: enumType['FASTFOOT'],
+  available: true,
+};
 
-  this.save = () => { }
+const updateFoodBuild = {
+  name: 'Picada',
+  price: 2,
+  type: enumType['FASTFOOT'],
+  available: true,
+};
 
+const resolvers = {
+  find: async () => {
+    return [food];
+  },
+  findById: async (id) => {
+    const [filterFood] = [food].filter((food) => food._id === id);
+    return filterFood;
+  },
 
-  return {
-    find: async () => {
-      return food;
-    },
-    findById: async (id) => {
-      const [filterFood] = [food].filter(food => food.id === idBuild)
-      return filterFood;
-    },
-
-    post: async (entity) => {
-      const newModel = {
-        _id: '718c12a6adeb13145f97bae1',
-        ...entity
+  save: async (entity) => {
+    const newModel = {
+      _id: idPost,
+      ...entity,
+    };
+    return newModel;
+  },
+  findOneAndUpdate: async (id, entity) => {
+    const [updateModel] = [food].map((food) => {
+      if (food._id === id) {
+        return {
+          ...food,
+          name: entity.name || food.name,
+          price: entity.price || food.price,
+          available: entity.available || food.available,
+          type: entity.type || food.type,
+        };
       }
-      return newModel;
+    });
 
-    },
-    findOneAndUpdate: async (id, entity) => {
+    return updateModel;
+  },
 
-      const updateModel = [food].map((food) => {
-        if (food.id === idBuild) {
-          return { ...food, ...entity };
-        }
-      })
-      return updateModel;
-    },
-
-    findOneAndDelete: async (id) => {
-      const [deleteModel] = [food].filter((food) => food.id !== idBuild);
-      return deleteModel;
-    },
-  }
-
-}
-
+  findOneAndDelete: async (id) => {
+    const [deleteModel] = [food].filter((food) => food._id === id);
+    return deleteModel;
+  },
+};
 
 module.exports = {
   builderFood,
-  Food,
-  idBuild
+  resolvers,
+  idBuild,
+  newFoodBuild,
+  updateFoodBuild,
+  idPost,
 };
