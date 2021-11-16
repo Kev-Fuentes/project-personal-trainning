@@ -22,7 +22,7 @@ beforeEach(async () => {
   findOneAndDelete.withArgs(idBuild).resolves(await resolvers.findOneAndDelete(idBuild));
 });
 
-describe.skip('BaseRepository', () => {
+describe('BaseRepository', () => {
   describe('get', () => {
     it('get', async () => {
       const foods = await modelFood.get();
